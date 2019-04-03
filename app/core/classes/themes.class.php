@@ -13,49 +13,57 @@
  */
 class ThemeManager
 {
-    private $configPath;
+    private $root;
 
     function __construct()
     {
-        $this->configPath = $_SERVER['DOCUMENT_ROOT'] . 'config.ini';
+        $this->root = $_SERVER['DOCUMENT_ROOT'] . 'config.ini';
     }
 
     /**
      * Sets the appropriate theme in config.ini
      *
-     * @throws \InvalidArgumentException in case of an invalid $themeName argument
-     * @throws \Exception in case of files related problems
-     * @param string $themeName The theme name.
+     * @param string $themeName
+     * @throws Exception
      */
     public function setTheme(string $themeName)
     {
         if(!is_string($themeName))
         {
-            throw new \InvalidArgumentException('First argument must be a string.');
-        }
-        if(!$handle = fopen($this->configPath, 'w'))
-        {
-            throw new Exception('Can\'t point to the config file', 1);
-        }
-        $configString = parse_ini_string($this->configPath);
-
-        $configString = preg_replace('/theme = (.*)/', '$0 --> theme = ' . $themeName, $configString);
-
-        if(!fwrite($handle, $configString))
-        {
-            throw new Exception('Can\'t point to the config file', 1);
+            throw new InvalidArgumentException('First argument must be a string.');
         }
 
+        write_ini_file($this->root . '/config.ini', 'theme', $themeName);
     }
 
+    /**
+     * Gets every available theme
+     *
+     * @return array
+     */
     public function getAllThemes()
     {
+        $path = $this->root . '/themes/';
+        $themes = [];
 
+        foreach (scandir($path) as $dir)
+        {
+            if(is_dir($dir))
+                $themes[] = $dir;
+        }
+
+        return $themes;
     }
 
+    /**
+     * Gets the current installation's theme
+     *
+     * @return mixed
+     */
     public function getTheme()
     {
-
+        $config = parse_ini_file($this->root . '/config.ini', false);
+        return $config['theme'];
     }
 
 }
