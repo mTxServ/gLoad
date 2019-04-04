@@ -1,7 +1,7 @@
 <?php
 /**
  * gLoad
- * themes.class.php
+ * ThemeManager.php
  * 
  * The main themes class which manage the theme system
  * It's a core file, do not delete it
@@ -11,6 +11,8 @@
  * @license http://www.apache.org/licenses/
  * @version 1.0-beta
  */
+require 'Helpers.php';
+
 class ThemeManager
 {
     private $root;
@@ -33,7 +35,19 @@ class ThemeManager
             throw new InvalidArgumentException('First argument must be a string.');
         }
 
-        write_ini_file($this->root . '/config.ini', 'theme', $themeName);
+        Helpers::write_ini_file($this->root . '/config.ini', 'theme', $themeName);
+    }
+
+    /**
+     * Returns if $themeName is an available theme
+     *
+     * @param string $themeName
+     * @return bool
+     */
+    public function isTheme(string $themeName)
+    {
+        $themePath = $this->root . '/themes/' . $themeName;
+        return is_dir($themePath);
     }
 
     /**
