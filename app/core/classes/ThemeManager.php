@@ -11,15 +11,28 @@
  * @license http://www.apache.org/licenses/
  * @version 1.0-beta
  */
-require 'Helpers.php';
-
 class ThemeManager
 {
-    private $root;
+    private $themeRoot;
+    private $configuration;
 
+    /**
+     * ThemeManager constructor.
+     */
     function __construct()
     {
-        $this->root = $_SERVER['DOCUMENT_ROOT'] . 'config.ini';
+        $this->themeRoot = $_SERVER['DOCUMENT_ROOT'] . '/themes/';
+        $this->configuration = $_SERVER['DOCUMENT_ROOT'] . '/config.ini';
+    }
+
+    /**
+     * Returns the /themes folder path
+     *
+     * @return string
+     */
+    public function getThemesRoot()
+    {
+        return $this->themeRoot;
     }
 
     /**
@@ -35,7 +48,7 @@ class ThemeManager
             throw new InvalidArgumentException('First argument must be a string.');
         }
 
-        Helpers::write_ini_file($this->root . '/config.ini', 'theme', $themeName);
+        Helpers::write_ini_file($this->configuration . '/config.ini', 'theme', $themeName);
     }
 
     /**
@@ -46,7 +59,7 @@ class ThemeManager
      */
     public function isTheme(string $themeName)
     {
-        $themePath = $this->root . '/themes/' . $themeName;
+        $themePath = $this->themeRoot . $themeName;
         return is_dir($themePath);
     }
 
@@ -57,10 +70,9 @@ class ThemeManager
      */
     public function getAllThemes()
     {
-        $path = $this->root . '/themes/';
         $themes = [];
 
-        foreach (scandir($path) as $dir)
+        foreach (scandir($this->themeRoot) as $dir)
         {
             if(is_dir($dir))
                 $themes[] = $dir;
@@ -76,7 +88,7 @@ class ThemeManager
      */
     public function getTheme()
     {
-        $config = parse_ini_file($this->root . '/config.ini', false);
+        $config = parse_ini_file($this->configuration, false);
         return $config['theme'];
     }
 

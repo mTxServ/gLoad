@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Class Helpers
  * Some helper functions that will be used in the code
