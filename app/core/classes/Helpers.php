@@ -42,4 +42,17 @@ class Helpers
 
         file_put_contents($path, $contents);
     }
+
+    /**
+     * Get a particular value from an .ini file
+     *
+     * @param string $path relative path to this file
+     * @param string $param name of the parameter
+     */
+    public static function get_param_ini_file(string $path, string $param)
+    {
+        $parsed = parse_ini_file($path, false);
+
+        return $parsed[$param];
+    }
 }

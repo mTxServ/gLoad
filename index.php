@@ -15,15 +15,23 @@ require 'app/core/core.php';
 
 $request = $_SERVER['REQUEST_URI'];
 $uri = explode('?', $request, 2)[0];
-switch ($uri)
-{
-    case '/':
-        require 'app/views/loading.php';
-    case '':
-        require 'app/views/loading.php';
-    case '/admin':
-        require 'app/views/admin.php';
-    case '/admin/':
-        require 'app/views/admin.php';
 
+$base = Helpers::get_param_ini_file('config.ini', 'install');
+if ($base[0] != '/')
+    $base = '/' . $base;
+if($base[strlen($base) - 1] != '/')
+    $base .= '/';
+
+$proper = str_replace($base, '', $uri);
+/* Redirecting user */
+switch ($proper)
+{
+    case 'admin':
+        require 'app/views/admin.php';
+        break;
+    case 'loading':
+        require 'app/views/loading.php';
+        break;
+    default:
+        require 'app/views/404.php';
 }
