@@ -18,7 +18,7 @@ $themePaths = [
     'json' => $manager->getThemesRoot() . $themeName . '/theme.json'
 ];
 
-$parser = new Parser($themePaths['index'], $themeName);
+$parser = new TagManager($themePaths['index'], $themeName);
 $htmlCode = $parser->parse();
 
 echo $htmlCode;

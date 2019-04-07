@@ -1,7 +1,7 @@
 <?php
 /**
  * gLoad
- * Parser.php
+ * TagManager.php
  *
  * This is the HTML files parser.
  *
@@ -10,7 +10,7 @@
  * @license http://www.apache.org/licenses/
  * @version 1.0-beta
  */
-class Parser
+class TagManager
 {
     /**
      * @var false|string Contain HTML code.
@@ -19,7 +19,7 @@ class Parser
     private $root;
 
     /**
-     * Parser constructor.
+     * TagManager constructor.
      * @param string $file
      * @throws Exception
      */
@@ -42,11 +42,13 @@ class Parser
     {
         $patterns = [
             '/{{style: (.*)}}/',
+            '/{{gloadscript}}/',
             '/{{steamavatar}}/',
             '/{{steamid}}/'
         ];
         $replace = [
             '<link href="' . $this->root . '/$1" rel="stylesheet"/>',
+            '<script src="' . $this->root . '/gload.js"></script>',
             '<img src="" alt="User steam avatar" />',
             'User steam id'
         ];

@@ -8,6 +8,7 @@ In **gLoad**, you can use some new keywords to imports styles and fetched data. 
 |  Property  |                 Keyword                |
 |:----------:|:--------------------------------------:|
 | Stylesheet | ``{{style: relative_path/style.css}}`` |
+| Global JS  |           ``{{globalscript}}``         |
 |   Avatar   |           ``{{steamavatar}}``          |
 |   SteamID  |             ``{{steamid}}``            |
 
