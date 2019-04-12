@@ -14,9 +14,9 @@ Every theme is located in its own folder in  the `theme` folder. When the page i
 
 ## Credits
 
-- Default theme
-
+#### _Admin panel_ and _Default theme_ :
 [Bootstrap CSS framework](https://getbootstrap.com) for a quicker frontend development
+
 
 ## License
 This code is distributed free of charge under the [Apache 2.0 license](https://www.apache.org/licenses/LICENSE-2.0). The code is distributed "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND.  For more information, please visit [LICENSE](https://github.com/Gabyfle/gLoad/blob/master/LICENSE)
