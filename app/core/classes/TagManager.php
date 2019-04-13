@@ -17,6 +17,7 @@ class TagManager
      */
     private $htmlFile;
     private $root;
+    private $themeRoot;
 
     /**
      * TagManager constructor.
@@ -29,8 +30,11 @@ class TagManager
         {
             throw new Exception('Parser load failed. Can\'t find ' . $file);
         }
+        $baseUrl = Helpers::get_param_ini_file('config.ini', 'protocol') . '://' . $_SERVER['SERVER_NAME'];
+
         $this->htmlFile = file_get_contents($file);
-        $this->root = $_SERVER['DOCUMENT_ROOT'] . '/themes/' . $themeName;
+        $this->root = $baseUrl;
+        $this->themeRoot = $baseUrl. '/themes/' . $themeName;
     }
 
     /**
@@ -42,12 +46,14 @@ class TagManager
     {
         $patterns = [
             '/{{style: (.*)}}/',
+            '/{{script: (.*)}}/',
             '/{{gloadscript}}/',
             '/{{steamavatar}}/',
             '/{{steamid}}/'
         ];
         $replace = [
-            '<link href="' . $this->root . '/$1" rel="stylesheet"/>',
+            '<link href="' . $this->themeRoot . '/$1" rel="stylesheet"/>',
+            '<script src="' . $this->themeRoot .'/$1"></script>',
             '<script src="' . $this->root . '/gload.js"></script>',
             '<img src="" alt="User steam avatar" />',
             'User steam id'

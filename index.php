@@ -15,21 +15,22 @@ require 'app/core/core.php';
 
 $request = $_SERVER['REQUEST_URI'];
 $uri = explode('?', $request, 2)[0];
-
 $base = Helpers::get_param_ini_file('config.ini', 'install');
-if ($base[0] != '/')
-    $base = '/' . $base;
-if($base[strlen($base) - 1] != '/')
-    $base .= '/';
+
+if (is_string($base) && strlen($base) >= 2)
+    if ($base[0] != '/')
+        $base = '/' . $base;
+else
+    $base = '/"';
 
 $proper = str_replace($base, '', $uri);
 /* Redirecting user */
 switch ($proper)
 {
-    case 'admin':
+    case '/admin':
         require 'app/views/admin.php';
         break;
-    case 'loading':
+    case '/loading':
         require 'app/views/loading.php';
         break;
     default:
