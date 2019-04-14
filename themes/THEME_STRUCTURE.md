@@ -5,12 +5,12 @@ Here's a short tutorial on how to add new themes to **gLoad**!
 The HTML template will be used to display the page to users connecting to your server. It's a basic HTML page as you usually create when you are doing traditionnal frontend.
 In **gLoad**, you can use some new keywords to imports styles and fetched data. Here, the complete list of everything you can get from **gLoad** :
 
-|  Property  |                 Keyword                |
-|:----------:|:--------------------------------------:|
-| Stylesheet | ``{{style: relative_path/style.css}}`` |
-| Global JS  |           ``{{globalscript}}``         |
-|   Avatar   |           ``{{steamavatar}}``          |
-|   SteamID  |             ``{{steamid}}``            |
+|  Property  |                 Keyword                 |
+|:----------:|:---------------------------------------:|
+| Stylesheet | ``{{style: relative_path/style.css}}``  |
+| JS Script  | ``{{script: relative_path/script.js}}`` |
+|   Avatar   |           ``{{steamavatar}}``           |
+|   SteamID  |             ``{{steamid}}``             |
 
 In your HTML code, you can use these keywords directly :
 ```html

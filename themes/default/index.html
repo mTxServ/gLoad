@@ -3,22 +3,55 @@
 <head>
     <meta charset="UTF-8" />
     {{style: assets/css/bootstrap.min.css}}
+    {{style: assets/css/default.css}}
 </head>
 <body>
-<div class="container">
-    <div class="row">
-        <div class="col-12">
-            <h2>Gabyfle</h2>
-        </div>
-        <div class="col-6">
-            This is a pure test.
-        </div>
-        <div class="col-6">
-            You know, I like potatoes.
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+            <h1 class="display-4">Gabyfle's Server</h1>
+            <p class="lead">Prepare yourself for an amazing experience on our server. We like potatoes, broccoli and fries.</p>
         </div>
     </div>
-</div>
-{{gloadscript}}
-{{script: assets/js/default.js}}
+    <div class="container">
+        <div class="row">
+            <div class="col-6">
+                <div class="card">
+                    <div class="card-header">
+                        Rules
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        {{json: rules, <li class="list-group-item">{{var}}</li>}}
+                    </ul>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="card">
+                    <div class="card-header">
+                        Pro tip
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        {{json: tips, <li class="list-group-item" id="yolo">{{var}}</li>}}
+                    </ul>
+                </div>
+            </div>
+            <div id="loading" class="fixed-bottom">
+                <div class="col-12">
+                    <p class="text-center status">
+                        Downloading : <span id="downloading"></span>
+                    </p>
+                </div>
+                <div id="progress" class="col-12">
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 50%"></div>
+                    </div>
+                </div>
+            </div>
+            {{json: rules, <hehe>{{var}}</hehe>}}
+        </div>
+    </div>
+    {{script: assets/js/jquery.min.js}}
+    {{script: assets/js/popper.min.js}}
+    {{script: assets/js/bootstrap.min.js}}
+    {{script: assets/js/default.js}}
 </body>
 </html>

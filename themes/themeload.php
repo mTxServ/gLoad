@@ -19,6 +19,7 @@ $themePaths = [
 ];
 
 $parser = new TagManager($themePaths['index'], $themeName);
+$parser->parse_config();
 $htmlCode = $parser->parse();
 
 echo $htmlCode;

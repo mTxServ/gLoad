@@ -37,6 +37,40 @@ class TagManager
         $this->themeRoot = $baseUrl. '/themes/' . $themeName;
     }
 
+    public function parse_config()
+    {
+        $data = Helpers::theme_config('default');
+        $keys = [];
+
+        if(!$data or !$data['extra'][0])
+            return false;
+
+        $pattern = '/{{json: (.*),/';
+        preg_match_all($pattern, $this->htmlFile, $m);
+
+        foreach ($m[1] as $key => $value)
+            $keys[] = $value;
+
+        foreach ($keys as $key) {
+            $pattern = '/{{json: ' . $key . ', (.*)}}/';
+            preg_match($pattern, $this->htmlFile, $m);
+
+            foreach ($m as $i => $value) {
+                if (($i - 1) % 2 == 0) {
+                    $delimiters = [];
+                    $replace = '';
+
+                    $delimiters[] = explode("{{var}}", $value);
+
+                    foreach ($data['extra'][0][$key] as $v)
+                        $replace .= implode($v, $delimiters[0]);
+
+                    $this->htmlFile = preg_replace($pattern, $replace, $this->htmlFile);
+                }
+            }
+        }
+    }
+
     /**
      * Parse the htmlFile and returns the HTML parsed code.
      *

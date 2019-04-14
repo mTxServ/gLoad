@@ -1,0 +1,30 @@
+/**
+ * default.css
+ * Default theme Stylesheet
+ * Made by @Gabyfle (Gabriel Santamaria <gaby.santamaria@outlook.fr>)
+ */
+@font-face {
+    font-family: "Coolvetica";
+    src: url("../fonts/coolvetica.eot");
+    src: url("../fonts/coolvetica.woff") format("woff"),
+    url("../fonts/coolvetica.svg") format("svg");
+}
+.display-4, .card-header{
+    font-family: 'Coolvetica', serif;
+}
+.jumbotron, .card-header{
+    background-color: #1090e8;
+    color: #f7f7f7;
+}
+.status{
+    display: block;
+    margin: 15px;
+}
+
+.card-header{
+    border-color: #1090e8;
+}
+
+#loading{
+    margin: 50px;
+}

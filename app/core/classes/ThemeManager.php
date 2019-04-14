@@ -48,7 +48,7 @@ class ThemeManager
             throw new InvalidArgumentException('First argument must be a string.');
         }
 
-        Helpers::write_ini_file($this->configuration . '/config.ini', 'theme', $themeName);
+        Helpers::write_ini_file($this->configuration, 'theme', $themeName);
     }
 
     /**
