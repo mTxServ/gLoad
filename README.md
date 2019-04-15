@@ -1,3 +1,4 @@
+![gLoad Header](https://steamuserimages-a.akamaihd.net/ugc/963116903891754210/EEB4623A14D0CFDFA49B511B1118633EDE420CDC/)
 # gLoad
 **gLoad** is a *Garry's Mod* loading-screen designed with frontend developers in mind. The goal is to let developers create their own loading-screen in a super-easy way.
 
@@ -10,7 +11,7 @@ Your are a developer and you wanted to know how **gLoad** theming is working ? S
 #### How does it works
 Every theme is located in its own folder in  the `theme` folder. When the page is loaded, the PHP script get the theme's name in the `config.ini` file and load the theme located in  `themes/<theme-name>/`.
 
-**gLoad** allows you to use built-in Javascripts functions to get data from *Garry's Mod*.
+~~**gLoad** allows you to use built-in Javascripts functions to get data from *Garry's Mod*.~~
 
 ## Credits
 
