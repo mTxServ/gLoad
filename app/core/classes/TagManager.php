@@ -53,19 +53,30 @@ class TagManager
 
         foreach ($keys as $key) {
             $pattern = '/{{json: ' . $key . ', (.*)}}/';
-            preg_match($pattern, $this->htmlFile, $m);
+            preg_match_all($pattern, $this->htmlFile, $m);
 
             foreach ($m as $i => $value) {
-                if (($i - 1) % 2 == 0) {
-                    $delimiters = [];
-                    $replace = '';
+                if ($i != 1)
+                    continue;
 
-                    $delimiters[] = explode("{{var}}", $value);
+                foreach ($value as $v)
+                {
+                    $subPattern = '/' . preg_quote('{{json: ' . $key . ', ' . $v . '}}', '/') . '/';
+                    preg_match($subPattern, $this->htmlFile, $match);
+                    if (!$match)
+                        continue;
 
-                    foreach ($data['extra'][0][$key] as $v)
-                        $replace .= implode($v, $delimiters[0]);
+                    foreach ($match as $t) {
+                        $delimiters = [];
+                        $replace = '';
 
-                    $this->htmlFile = preg_replace($pattern, $replace, $this->htmlFile);
+                        $delimiters[] = explode("{{var}}", $v);
+
+                        foreach ($data['extra'][0][$key] as $v)
+                            $replace .= implode($v, $delimiters[0]);
+
+                        $this->htmlFile = preg_replace($subPattern, $replace, $this->htmlFile);
+                    }
                 }
             }
         }
