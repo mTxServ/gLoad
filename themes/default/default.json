@@ -15,6 +15,10 @@
         "Go to the tawn hall to buy a brain",
         "Press 'X' to get more power",
         "I need a break, that was hard to encode this shit."
+      ],
+      "screens" : [
+        "{{siteroot}}/themes/default/assets/images/background-1-default.jpg",
+        "{{siteroot}}/themes/default/assets/images/background-2-default.jpg"
       ]
     }
   ]

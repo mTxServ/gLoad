@@ -11,7 +11,10 @@
  * @license http://www.apache.org/licenses/
  * @version 1.0-beta
 */
+define('VIEWS_PATH', 'app/views/');
+
 require 'app/core/core.php';
+require __DIR__ . '/vendor/autoload.php';
 
 $request = $_SERVER['REQUEST_URI'];
 $uri = explode('?', $request, 2)[0];
@@ -24,15 +27,18 @@ else
     $base = '/"';
 
 $proper = str_replace($base, '', $uri);
-/* Redirecting user */
+
 switch ($proper)
 {
     case '/admin':
-        require 'app/views/admin.php';
+        $controller = new AdminController();
         break;
     case '/loading':
-        require 'app/views/loading.php';
+        $controller = new LoadingController();
         break;
     default:
-        require 'app/views/404.php';
+        $controller = new ErrorController();
+        break;
 }
+
+$controller->run();

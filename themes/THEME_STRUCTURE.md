@@ -25,7 +25,7 @@ This code will be replaced by the parser in :
 <head>
     <meta charset="UTF8"/>
     <title>Default theme</title>
-    <link href="assets/css/style.css" rel="stylesheet"/>
+    <link href="http://<yourhost><installurl>/assets/css/style.css" rel="stylesheet"/>
 </head>
 ```
 So just focus on developing your new amazing theme for **gLoad**, and use these keywords when you need it, **gLoad** does the rest of the work for you!
@@ -49,6 +49,7 @@ These informations have to be compacted in JSON format, like this :
 ```json
 {
   "author": "Gabriel Santamaria",
-  "theme_name": "Default"
+  "name": "Default",
+  "version": "1.0"
 }
 ```

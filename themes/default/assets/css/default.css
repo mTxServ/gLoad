@@ -28,3 +28,10 @@
 #loading{
     margin: 50px;
 }
+
+#screensCarousel {
+    padding-top: 20px;
+}
+.carousel-inner{
+    border-radius: calc(-1px + 0.25rem);
+}

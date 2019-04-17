@@ -57,6 +57,32 @@ class Helpers
     }
 
     /**
+     * Get the full server URL including protocol and port
+     *
+     * @return string
+     */
+    public static function get_server_url()
+    {
+        /* Defining the server's protocol */
+        if(!empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) != 'off')
+            $protocol = 'https';
+        else
+            $protocol = 'http';
+
+        /* Defining server name */
+        $serverName = $_SERVER['SERVER_NAME'];
+
+        /* Defining server port */
+        if ($_SERVER['SERVER_PORT'] != 80 || $_SERVER['SERVER_PORT'] != 443) {
+            $port = ":{$_SERVER['SERVER_PORT']}";
+        } else {
+            $port = '';
+        }
+
+        return $protocol . '://' . $serverName . $port;
+    }
+
+    /**
      * Get the whole theme configuration file
      *
      * @param string $themeName

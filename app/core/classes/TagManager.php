@@ -30,7 +30,7 @@ class TagManager
         {
             throw new Exception('Parser load failed. Can\'t find ' . $file);
         }
-        $baseUrl = Helpers::get_param_ini_file('config.ini', 'protocol') . '://' . $_SERVER['SERVER_NAME'];
+        $baseUrl = Helpers::get_server_url();
 
         $this->htmlFile = file_get_contents($file);
         $this->root = $baseUrl;
@@ -92,14 +92,14 @@ class TagManager
         $patterns = [
             '/{{style: (.*)}}/',
             '/{{script: (.*)}}/',
-            '/{{gloadscript}}/',
+            '/{{siteroot}}/',
             '/{{steamavatar}}/',
             '/{{steamid}}/'
         ];
         $replace = [
             '<link href="' . $this->themeRoot . '/$1" rel="stylesheet"/>',
             '<script src="' . $this->themeRoot .'/$1"></script>',
-            '<script src="' . $this->root . '/gload.js"></script>',
+            $this->root,
             '<img src="" alt="User steam avatar" />',
             'User steam id'
         ];
