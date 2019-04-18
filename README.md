@@ -5,6 +5,17 @@
 ## What is it
 Designed for frontend developers, **gLoad** is a *Garry's Mod* loading screen including a complete admin panel.
 If you are a server owner, you'll appreciate it for its robustness. If you are a frontend developer, stop waiting and start creating a theme for **gLoad** ! 
+
+## Installing
+### Installing throught `Composer`
+1. Clone the repositery with Git : ``git clone https://github.com/Gabyfle/gLoad``
+2. Create the autoloader with Composer : ``composer install``
+3. Follow the installation instruction
+### Installing a release
+1. Download the lastest release here : [gLoad/releases](https://github.com/Gabyfle/gLoad/releases)
+2. Drag'n'drop the release in your web-host's server (can be done with any FTP client)
+3. Follow the installation instruction
+
 ## Developers
 Your are a developer and you wanted to know how **gLoad** theming is working ? See : [THEME_STRUCTURE.md](https://github.com/Gabyfle/gLoad/blob/master/themes/THEME_STRUCTURE.md) for more informations.
 
@@ -15,9 +26,14 @@ Every theme is located in its own folder in  the `theme` folder. When the page i
 
 ## Credits
 
-#### _Admin panel_ and _Default theme_ :
-[Bootstrap CSS framework](https://getbootstrap.com) for a quicker frontend development
-
+#### Front-end development
+- [JQuery](https://jquery.com/) write less, do more.
+- [popper.js](https://popper.js.org/) A kickass library used to manage poppers in web applications.
+- [Bootstrap](https://getbootstrap.com) the world’s most popular front-end component library.
+#### Back-end development
+- [gSteam-Auth](https://github.com/Gabyfle/gSteam-Auth) An object oriented Steam authentication PHP library.
+- [write_ini_file](https://gist.github.com/Gabyfle/3ea2a2ec1125f967fc06736c91d27df9) Write and modify a parameter in an ini file.
+- [composer](https://getcomposer.org/) Dependency Manager for PHP.
 
 ## License
 This code is distributed free of charge under the [Apache 2.0 license](https://www.apache.org/licenses/LICENSE-2.0). The code is distributed "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND.  For more information, please visit [LICENSE](https://github.com/Gabyfle/gLoad/blob/master/LICENSE)
