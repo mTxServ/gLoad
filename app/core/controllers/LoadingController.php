@@ -9,6 +9,9 @@
  * @license http://www.apache.org/licenses/
  * @version 1.0-beta
  */
+namespace gLoad\Controllers;
+
+use gLoad\Classes\Controller;
 
 class LoadingController extends Controller
 {

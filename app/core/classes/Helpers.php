@@ -3,6 +3,8 @@
  * Class Helpers
  * Some helper functions that will be used in the code
  */
+namespace gLoad\Classes;
+
 class Helpers
 {
     /**
@@ -87,13 +89,13 @@ class Helpers
      *
      * @param string $themeName
      * @return mixed
-     * @throws Exception
+     * @throws \Exception
      */
     public static function theme_config(string $themeName)
     {
         $PATH = $_SERVER['DOCUMENT_ROOT'] . "/themes/" . $themeName . "/" . $themeName . ".json";
         if (!is_file($PATH))
-            throw new Exception('Can\'t find the theme\'s config file.');
+            throw new \Exception('Can\'t find the theme\'s config file.');
 
         $json = file_get_contents($PATH);
 

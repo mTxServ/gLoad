@@ -10,7 +10,8 @@
  * @license http://www.apache.org/licenses/
  * @version 1.0-beta
  */
-$manager = new ThemeManager();
+
+$manager = new \gLoad\Classes\ThemeManager();
 $themeName = $manager->getTheme();
 $themePaths = [
     'folder' => $manager->getThemesRoot() . $themeName,
@@ -18,7 +19,7 @@ $themePaths = [
     'json' => $manager->getThemesRoot() . $themeName . '/theme.json'
 ];
 
-$parser = new TagManager($themePaths['index'], $themeName);
+$parser = new \gLoad\Classes\TagManager($themePaths['index'], $themeName);
 $parser->parse_config();
 $htmlCode = $parser->parse();
 

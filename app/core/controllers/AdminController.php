@@ -9,6 +9,9 @@
  * @license http://www.apache.org/licenses/
  * @version 1.0-beta
  */
+namespace gLoad\Controllers;
+
+use gLoad\Classes\Controller;
 
 class AdminController extends Controller
 {
@@ -16,8 +19,13 @@ class AdminController extends Controller
 
     public function __construct()
     {
-        $steamApiKey = Helpers::get_param_ini_file('config.ini', 'steamKey');
-        $this->openid = new Gabyfle\SteamAuth('localhost', $steamApiKey);
+        $steamApiKey = \gLoad\Classes\Helpers::get_param_ini_file('config.ini', 'steamKey');
+        try{
+            $this->openid = new \Gabyfle\SteamAuth('localhost', $steamApiKey);
+        } catch(\ErrorException $e){
+            /* TODO: adding the error to PHP logs */
+            header('Location: /loading');
+        }
     }
 
     /**
@@ -26,7 +34,7 @@ class AdminController extends Controller
      */
     private function isConnected()
     {
-        return $this->openid->__check();
+        return $this->openid->check();
     }
 
     /**
@@ -36,20 +44,19 @@ class AdminController extends Controller
      */
     private function isAdmin()
     {
-        if (!$this->isConnected())
-            return false;
-        else {
-            $adminSteam = Helpers::get_param_ini_file('config.ini', 'admin');
-            $userId = $this->openid->getUserData('steamid');
-            return $adminSteam == $userId;
-        }
+        $adminSteam = \gLoad\Classes\Helpers::get_param_ini_file('config.ini', 'superadmin');
+        $userId = $this->openid->getUserData('steamid');
+        return $adminSteam == $userId;
     }
 
     public function run()
     {
-        if (!$this->isAdmin())
+        if (!$this->isConnected())
+            header('Location: /connect'); // redirect to connection page
+        elseif(!$this->isAdmin()) {
+            $this->openid->disconnect();
             header('Location: /loading');
-        else
+        } else
             require_once VIEWS_PATH . 'admin.php';
     }
 

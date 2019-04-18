@@ -9,6 +9,8 @@
  * @license http://www.apache.org/licenses/
  * @version 1.0-beta
  */
+namespace gLoad\Classes;
+
 abstract class Controller
 {
     /**

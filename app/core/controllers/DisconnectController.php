@@ -1,8 +1,8 @@
 <?php
 /**
- * Class ErrorController
+ * Class ConnectionController
  *
- * Access to error pages
+ * Disconnect the user if he's connected and redirect him to the loading screen
  *
  * @author Gabriel Santamaria <gaby.santamaria@outlook.fr>
  * @license Apache License Version 2.0, January 2004
@@ -13,14 +13,11 @@ namespace gLoad\Controllers;
 
 use gLoad\Classes\Controller;
 
-class ErrorController extends Controller
+class DisconnectController extends Controller
 {
-    public function __construct()
-    {
-    }
-
     public function run()
     {
-        require VIEWS_PATH . '404.php';
+        \Gabyfle\SteamAuth::disconnect();
+        header('Location: /loading');
     }
 }

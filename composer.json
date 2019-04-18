@@ -1,4 +1,9 @@
 {
+    "autoload": {
+        "psr-4": {
+            "gLoad\\": "app/core"
+        }
+    },
     "require": {
         "gabyfle/gsteam-auth": "@dev"
     }

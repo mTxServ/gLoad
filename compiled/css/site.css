@@ -1,0 +1,13 @@
+/*
+    site.css
+    @author Gabriel Santamaria <gaby.santamaria@outlook.fr>
+    This file is under the Apache 2.0 license
+*/
+
+body {
+    text-align: center !important;
+}
+
+#not-found{
+    padding-top: 30vh;
+}

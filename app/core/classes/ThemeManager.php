@@ -11,6 +11,8 @@
  * @license http://www.apache.org/licenses/
  * @version 1.0-beta
  */
+namespace gLoad\Classes;
+
 class ThemeManager
 {
     private $themeRoot;
@@ -39,14 +41,12 @@ class ThemeManager
      * Sets the appropriate theme in config.ini
      *
      * @param string $themeName
-     * @throws Exception
+     * @throws \Exception
      */
     public function setTheme(string $themeName)
     {
         if(!is_string($themeName))
-        {
-            throw new InvalidArgumentException('First argument must be a string.');
-        }
+            throw new \Exception('First argument must be a string.');
 
         Helpers::write_ini_file($this->configuration, 'theme', $themeName);
     }
@@ -73,10 +73,8 @@ class ThemeManager
         $themes = [];
 
         foreach (scandir($this->themeRoot) as $dir)
-        {
             if(is_dir($dir))
                 $themes[] = $dir;
-        }
 
         return $themes;
     }
