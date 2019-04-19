@@ -33,6 +33,7 @@ Every theme is located in its own folder in  the `theme` folder. When the page i
 #### Back-end development
 - [gSteam-Auth](https://github.com/Gabyfle/gSteam-Auth) An object oriented Steam authentication PHP library.
 - [write_ini_file](https://gist.github.com/Gabyfle/3ea2a2ec1125f967fc06736c91d27df9) Write and modify a parameter in an ini file.
+- [get_latest_release_name](https://gist.github.com/Gabyfle/3ea2a2ec1125f967fc06736c91d27df9) Gets the latest release (includes pre-releases) name (based on Tag names) of a Github-hosted repository.
 - [composer](https://getcomposer.org/) Dependency Manager for PHP.
 
 ## License
