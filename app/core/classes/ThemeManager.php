@@ -15,26 +15,18 @@ namespace gLoad\Classes;
 
 class ThemeManager
 {
-    private $themeRoot;
-    private $configuration;
+    private static $themeRoot = DOCUMENT_ROOT . '/themes/';
+    private static $configuration = DOCUMENT_ROOT . '/config.ini';
 
-    /**
-     * ThemeManager constructor.
-     */
-    function __construct()
-    {
-        $this->themeRoot = $_SERVER['DOCUMENT_ROOT'] . '/themes/';
-        $this->configuration = $_SERVER['DOCUMENT_ROOT'] . '/config.ini';
-    }
 
     /**
      * Returns the /themes folder path
      *
      * @return string
      */
-    public function getThemesRoot()
+    public static function getThemesRoot()
     {
-        return $this->themeRoot;
+        return self::$themeRoot;
     }
 
     /**
@@ -43,12 +35,12 @@ class ThemeManager
      * @param string $themeName
      * @throws \Exception
      */
-    public function setTheme(string $themeName)
+    public static function setTheme(string $themeName)
     {
         if(!is_string($themeName))
             throw new \Exception('First argument must be a string.');
 
-        Helpers::write_ini_file($this->configuration, 'theme', $themeName);
+        Helpers::write_ini_file(self::$configuration, 'theme', $themeName);
     }
 
     /**
@@ -57,10 +49,21 @@ class ThemeManager
      * @param string $themeName
      * @return bool
      */
-    public function isTheme(string $themeName)
+    public static function isTheme(string $themeName)
     {
-        $themePath = $this->themeRoot . $themeName;
-        return is_dir($themePath);
+        $themePath = self::$themeRoot . $themeName;
+        $themeConfig = self::$themeRoot . $themeName . '/theme.json';
+
+        if (is_dir($themePath)) {
+            if (!is_file($themeConfig))
+                return false;
+
+            $json = file_get_contents($themeConfig);
+            $decoded = json_decode($json, true);
+            return json_last_error() == JSON_ERROR_NONE && !empty($decoded['author']) && !empty($decoded['name']) && !empty($decoded['version']) && is_array($decoded['extra']); /* the file is a valid json */
+        }
+
+        return false;
     }
 
     /**
@@ -68,13 +71,20 @@ class ThemeManager
      *
      * @return array
      */
-    public function getAllThemes()
+    public static function getAllThemes()
     {
         $themes = [];
 
-        foreach (scandir($this->themeRoot) as $dir)
-            if(is_dir($dir))
-                $themes[] = $dir;
+        foreach (scandir(self::$themeRoot) as $dir) {
+            if (self::isTheme($dir)){
+                $themeConfig = self::$themeRoot . $dir . '/theme.json';
+                $json = file_get_contents($themeConfig);
+                $decoded = json_decode($json, true);
+
+                $themes[] = $decoded['name'];
+            }
+
+        }
 
         return $themes;
     }
@@ -84,10 +94,28 @@ class ThemeManager
      *
      * @return mixed
      */
-    public function getTheme()
+    public static function getTheme()
     {
-        $config = parse_ini_file($this->configuration, false);
+        $config = parse_ini_file(self::$configuration, false);
         return $config['theme'];
     }
 
+    /**
+     * Get the whole theme configuration file
+     *
+     * @param string $themeName
+     * @return mixed
+     * @throws \Exception
+     */
+    public static function getThemeConfig(string $themeName)
+    {
+        $themeConfig = self::$themeRoot . $themeName . '/theme.json';
+        if (!is_file($themeConfig))
+            throw new \Exception('Can\'t find the theme\'s config file.');
+
+        $json = file_get_contents($themeConfig);
+
+        $config = json_decode($json, true);
+        return $config;
+    }
 }

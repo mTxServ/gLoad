@@ -13,6 +13,7 @@
 */
 session_start();
 define('VIEWS_PATH', 'app/views/');
+define('DOCUMENT_ROOT', $_SERVER['DOCUMENT_ROOT']);
 
 require __DIR__ . '/vendor/autoload.php';
 

@@ -5,6 +5,7 @@
         }
     },
     "require": {
+        "ext-json": "*",
         "gabyfle/gsteam-auth": "@dev"
     }
 }

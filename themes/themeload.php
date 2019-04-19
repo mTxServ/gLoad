@@ -12,15 +12,19 @@
  */
 
 $manager = new \gLoad\Classes\ThemeManager();
-$themeName = $manager->getTheme();
+$themeName = \gLoad\Classes\ThemeManager::getTheme();
 $themePaths = [
-    'folder' => $manager->getThemesRoot() . $themeName,
-    'index' => $manager->getThemesRoot() . $themeName . '/index.html',
-    'json' => $manager->getThemesRoot() . $themeName . '/theme.json'
+    'folder' => \gLoad\Classes\ThemeManager::getThemesRoot() . $themeName,
+    'index' => \gLoad\Classes\ThemeManager::getThemesRoot() . $themeName . '/index.html',
+    'json' => \gLoad\Classes\ThemeManager::getThemesRoot() . $themeName . '/theme.json'
 ];
 
-$parser = new \gLoad\Classes\TagManager($themePaths['index'], $themeName);
-$parser->parse_config();
-$htmlCode = $parser->parse();
+try{
+    $parser = new \gLoad\Classes\TagManager($themePaths['index'], $themeName);
+    $parser->parse_config();
+    $htmlCode = $parser->parse();
+} catch(ErrorException $e) {
+    echo 'An error occurred while trying to get the theme\'s data : ' . $e;
+}
 
 echo $htmlCode;

@@ -3,11 +3,35 @@
     @author Gabriel Santamaria <gaby.santamaria@outlook.fr>
     This file is under the Apache 2.0 license
 */
-
-body {
+#not-found{
     text-align: center !important;
+    padding-top: 30vh;
 }
 
-#not-found{
-    padding-top: 30vh;
+.alert{
+    margin: 15px;
+}
+
+.input-group{
+    padding-bottom: 9px;
+}
+
+.section-title{
+    margin-top: 20px;
+}
+.config-text{
+   margin-bottom: 15px;
+}
+
+.accordion > .card:first-of-type {
+    border-bottom: 1px solid rgba(0,0,0,.125);;
+    border-bottom-right-radius: .25rem;
+    border-bottom-left-radius: .25rem;
+
+}
+
+@media (max-width: 768px) {
+    .card{
+        margin-top: 15px;
+    }
 }

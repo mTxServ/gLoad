@@ -41,7 +41,12 @@ class TagManager
 
     public function parse_config()
     {
-        $data = Helpers::theme_config('default');
+        try{
+            $data = \gLoad\Classes\ThemeManager::getThemeConfig('default');
+        } catch(\ErrorException $e) {
+            return false;
+        }
+
         $keys = [];
 
         if(!$data or !$data['extra'][0])

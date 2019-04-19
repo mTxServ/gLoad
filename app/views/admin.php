@@ -2,11 +2,13 @@
 /**
  * Administrator dashboard
  */
+$themeName = \gLoad\Classes\Helpers::get_param_ini_file('config.ini', 'theme');
 ?>
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
     <title>gLoad | Administrator dashboard</title>
     <link rel="stylesheet" href="<?= \gLoad\Classes\Helpers::get_server_url() . '/compiled/css/bootstrap.min.css' ?>">
     <!-- font awesome includes -->
@@ -37,6 +39,131 @@
             </div>
         </div>
     </nav>
+    <div class="container">
+        <div class="alert alert-success" role="alert">
+            <h4 class="alert-heading">Welcome home, <?= \Gabyfle\SteamAuth::getUserData('personaname'); ?></h4>
+            <p>gLoad is a loading-screen management system that has been designed for front-end developers. In this administration panel, you will find everything you need to configure your installation. I invite you to make regular visits to the "updates" section of your dashboard to ensure the safe use of gLoad.</p>
+            <hr>
+            <p class="mb-0"><a href="https://github.com/Gabyfle">@Gabyfle</a>, author of <b>gLoad</b> </p>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-12 section-title">
+                    <h2>General informations</h2>
+                    <hr class="my-4">
+                </div>
+                <div class="col-12 col-md-6">
+                    <div class="card text-white bg-dark">
+                        <div class="card-header">Your loading URL</div>
+                        <div class="card-body">
+                            <div class="input-group input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="inputGroup-sizing-default">URL</span>
+                                </div>
+                                <input type="text" class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm" placeholder="<?= \gLoad\Classes\Helpers::get_server_url() . \gLoad\Classes\Helpers::get_param_ini_file('config.ini', 'install') ?>/loading" value="<?= \gLoad\Classes\Helpers::get_server_url() . \gLoad\Classes\Helpers::get_param_ini_file('config.ini', 'install') ?>/loading">
+                            </div>
+                            <p class="card-text">Goes in your servers settings (<code>server.cfg</code>) and in the field <code>sv_loading_url</code>, put this link.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6">
+                    <div class="card text-white bg-info">
+                        <div class="card-header">Your system version</div>
+                        <div class="card-body">
+                            <h5 class="card-title">Latest version : 1.0.1-beta</h5>
+                            <h5 class="card-title">Installed version : 1.0.0-beta</h5>
+                            <p class="card-text">We recommend to always use the latest version of gLoad.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 section-title">
+                    <h2>Theme configuration</h2>
+                    <hr class="my-4">
+                </div>
+                <div class="col-12 col-md-6">
+                    <h4>Current theme : <code><?= htmlspecialchars($themeName) ?></code></h4>
+                    <p class="small">
+                        <b>Author :</b> <?= htmlspecialchars(\gLoad\Classes\ThemeManager::getThemeConfig($themeName)['author']) ?>
+                        <br>
+                        <b>Version :</b> <?= htmlspecialchars(\gLoad\Classes\ThemeManager::getThemeConfig($themeName)['version']) ?>
+                    </p>
+                </div>
+                <div class="col-12 col-md-6">
+                    <div class="row">
+                        <div class="col-6">
+                            <h4>Available themes : </h4>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <select class="form-control" id="themeSelect">
+                                    <?php
+                                        foreach (\gLoad\Classes\ThemeManager::getAllThemes() as $theme){
+                                            echo '<option>' . htmlspecialchars($theme) . '</option>';
+                                        }
+                                    ?>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <button type="button" class="btn btn-outline-success btn-block">Use this theme</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <h4></h4>
+                    <div class="accordion" id="accordionConfig">
+                        <div class="card">
+                            <div class="card-header" id="main">
+                                <h2 class="mb-0">
+                                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseMain" aria-expanded="false" aria-controls="collapseMain">
+                                        Configuring <code><?= $themeName ?></code>
+                                    </button>
+                                </h2>
+                            </div>
+
+                            <div id="collapseMain" class="collapse" aria-labelledby="main" data-parent="#accordionConfig">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <?php
+                                        foreach (\gLoad\Classes\ThemeManager::getThemeConfig($themeName)['extra'][0] as $key => $extraConfig){
+                                            ?>
+                                            <?php
+                                            if(is_array($extraConfig)) {
+                                                ?>
+                                                <div class="col-12 col-md-4">
+                                                    <h5><code><?= $key ?></code></h5>
+                                                    <?php
+                                                    foreach ($extraConfig as $value) {
+                                                        ?>
+                                                        <input type="text" class="form-control config-text" aria-label="Large"
+                                                               aria-describedby="inputGroup-sizing-sm" value="<?= $value ?>">
+                                                        <?php
+                                                    }
+                                                    ?>
+                                                    <button class="btn btn-outline-dark btn-block">Adding a new field</button>
+                                                </div>
+                                                <?php
+                                            } else {
+                                                ?>
+                                                <div class="col-12">
+                                                    <h5 class="inline"><code><?= $key ?></code> :</h5> <input type="text" class="form-control" aria-label="Large"
+                                                                                                              aria-describedby="inputGroup-sizing-sm" value="<?= $extraConfig ?>">
+                                                </div>
+                                                <?php
+                                            }
+                                        }
+                                        ?>
+                                    </div>
+                                    <hr>
+                                    <button class="btn btn-outline-warning btn-block btn-lg">Update theme's settings</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <script src="<?= \gLoad\Classes\Helpers::get_server_url() . '/compiled/js/jquery.min.js' ?>"></script>
     <script src="<?= \gLoad\Classes\Helpers::get_server_url() . '/compiled/js/popper.min.js' ?>"></script>
     <script src="<?= \gLoad\Classes\Helpers::get_server_url() . '/compiled/js/bootstrap.min.js' ?>"></script>
