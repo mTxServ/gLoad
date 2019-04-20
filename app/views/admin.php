@@ -46,6 +46,16 @@ $themeName = \gLoad\Classes\Helpers::get_param_ini_file('config.ini', 'theme');
             <hr>
             <p class="mb-0"><a href="https://github.com/Gabyfle">@Gabyfle</a>, author of <b>gLoad</b> </p>
         </div>
+        <?php
+            if(\gLoad\Classes\Helpers::get_latest_version('https://github.com/Gabyfle/gSteam-Auth') != SYSTEM_VERSION) {
+                ?>
+                <div class="alert alert-danger" role="alert">
+                    A new update is available for <b>gLoad</b>! Click here for more details: <a
+                            href="https://github.com/Gabyfle/gLoad/releases" class="alert-link">Releases</a>
+                </div>
+                <?php
+            }
+        ?>
         <div class="container">
             <div class="row">
                 <div class="col-12 section-title">
@@ -70,7 +80,7 @@ $themeName = \gLoad\Classes\Helpers::get_param_ini_file('config.ini', 'theme');
                     <div class="card text-white bg-info">
                         <div class="card-header">Your system version</div>
                         <div class="card-body">
-                            <h5 class="card-title">Latest version : 1.0.1-beta</h5>
+                            <h5 class="card-title">Latest version : <?= \gLoad\Classes\Helpers::get_latest_version('https://github.com/Gabyfle/gSteam-Auth') ?></h5>
                             <h5 class="card-title">Installed version : 1.0.0-beta</h5>
                             <p class="card-text">We recommend to always use the latest version of gLoad.</p>
                         </div>
@@ -80,92 +90,127 @@ $themeName = \gLoad\Classes\Helpers::get_param_ini_file('config.ini', 'theme');
                     <h2>Theme configuration</h2>
                     <hr class="my-4">
                 </div>
+
                 <div class="col-12 col-md-6">
+                    <?php
+                        if(\gLoad\Classes\ThemeManager::isTheme($themeName)){ ?>
                     <h4>Current theme : <code><?= htmlspecialchars($themeName) ?></code></h4>
                     <p class="small">
-                        <b>Author :</b> <?= htmlspecialchars(\gLoad\Classes\ThemeManager::getThemeConfig($themeName)['author']) ?>
+                        <b>Author
+                            :</b> <?= htmlspecialchars(\gLoad\Classes\ThemeManager::getThemeConfig($themeName)['author']) ?>
                         <br>
-                        <b>Version :</b> <?= htmlspecialchars(\gLoad\Classes\ThemeManager::getThemeConfig($themeName)['version']) ?>
+                        <b>Version
+                            :</b> <?= htmlspecialchars(\gLoad\Classes\ThemeManager::getThemeConfig($themeName)['version']) ?>
                     </p>
+                        <?php
+                    } else {
+                        ?>
+                        <div class="alert alert-danger" role="alert">
+                            <strong>OMG!</strong> An error occurred while trying to get the current theme. Please, choose a valid theme from the list of available themes.
+                        </div>
+                        <?php
+                    }
+                    ?>
                 </div>
                 <div class="col-12 col-md-6">
-                    <div class="row">
-                        <div class="col-6">
-                            <h4>Available themes : </h4>
-                        </div>
-                        <div class="col-6">
-                            <div class="form-group">
-                                <select class="form-control" id="themeSelect">
-                                    <?php
+                    <form method="POST" action="/update/theme">
+                        <div class="form-row">
+                            <div class="col-6">
+                                <h4><label for="themeSelect">Available themes : </label></h4>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <select class="form-control" id="themeSelect" name="themeName">
+                                        <?php
                                         foreach (\gLoad\Classes\ThemeManager::getAllThemes() as $theme){
                                             echo '<option>' . htmlspecialchars($theme) . '</option>';
                                         }
-                                    ?>
-                                </select>
+                                        ?>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <button type="submit" class="btn btn-outline-success btn-block">Use this theme</button>
                             </div>
                         </div>
-                        <div class="col-12">
-                            <button type="button" class="btn btn-outline-success btn-block">Use this theme</button>
-                        </div>
-                    </div>
+                    </form>
                 </div>
-                <div class="col-12">
-                    <h4></h4>
-                    <div class="accordion" id="accordionConfig">
-                        <div class="card">
-                            <div class="card-header" id="main">
-                                <h2 class="mb-0">
-                                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseMain" aria-expanded="false" aria-controls="collapseMain">
-                                        Configuring <code><?= $themeName ?></code>
-                                    </button>
-                                </h2>
-                            </div>
+                <?php
+                    if(\gLoad\Classes\ThemeManager::isTheme($themeName)) {
+                        ?>
+                        <div class="col-12">
+                            <h4></h4>
+                            <div class="accordion" id="accordionConfig">
+                                <div class="card">
+                                    <div class="card-header" id="main">
+                                        <h2 class="mb-0">
+                                            <button class="btn btn-link" type="button" data-toggle="collapse"
+                                                    data-target="#collapseMain" aria-expanded="false"
+                                                    aria-controls="collapseMain">
+                                                Configuring <code><?= $themeName ?></code>
+                                            </button>
+                                        </h2>
+                                    </div>
 
-                            <div id="collapseMain" class="collapse" aria-labelledby="main" data-parent="#accordionConfig">
-                                <div class="card-body">
-                                    <div class="row">
-                                        <?php
-                                        foreach (\gLoad\Classes\ThemeManager::getThemeConfig($themeName)['extra'][0] as $key => $extraConfig){
-                                            ?>
-                                            <?php
-                                            if(is_array($extraConfig)) {
-                                                ?>
-                                                <div class="col-12 col-md-4">
-                                                    <h5><code><?= $key ?></code></h5>
-                                                    <?php
-                                                    foreach ($extraConfig as $value) {
+                                    <div id="collapseMain" class="collapse" aria-labelledby="main"
+                                         data-parent="#accordionConfig">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <?php
+                                                foreach (\gLoad\Classes\ThemeManager::getThemeConfig($themeName)['extra'][0] as $key => $extraConfig) {
+                                                    if (is_array($extraConfig)) {
                                                         ?>
-                                                        <input type="text" class="form-control config-text" aria-label="Large"
-                                                               aria-describedby="inputGroup-sizing-sm" value="<?= $value ?>">
+                                                        <div class="col-12 col-md-4">
+                                                            <div id="<?= $key ?>">
+                                                                <h5><code><?= $key ?></code></h5>
+                                                                <?php
+                                                                foreach ($extraConfig as $value) {
+                                                                    ?>
+                                                                    <input type="text" class="form-control config-text"
+                                                                           aria-label="Large"
+                                                                           aria-describedby="inputGroup-sizing-sm"
+                                                                           value="<?= $value ?>">
+                                                                    <?php
+                                                                }
+                                                                ?>
+                                                            </div>
+                                                            <button type="button" class="btn btn-outline-dark btn-block"
+                                                                    data-toggle="configFields"
+                                                                    data-target="<?= $key ?>">Adding a new field
+                                                            </button>
+                                                        </div>
+                                                        <?php
+                                                    } else {
+                                                        ?>
+                                                        <div id="<?= $key ?>" class="col-12">
+                                                            <h5 class="inline"><code><?= $key ?></code> :</h5> <input
+                                                                    type="text" class="form-control" aria-label="Large"
+                                                                    aria-describedby="inputGroup-sizing-sm"
+                                                                    value="<?= $extraConfig ?>">
+                                                        </div>
                                                         <?php
                                                     }
-                                                    ?>
-                                                    <button class="btn btn-outline-dark btn-block">Adding a new field</button>
-                                                </div>
-                                                <?php
-                                            } else {
+                                                }
                                                 ?>
-                                                <div class="col-12">
-                                                    <h5 class="inline"><code><?= $key ?></code> :</h5> <input type="text" class="form-control" aria-label="Large"
-                                                                                                              aria-describedby="inputGroup-sizing-sm" value="<?= $extraConfig ?>">
-                                                </div>
-                                                <?php
-                                            }
-                                        }
-                                        ?>
+                                            </div>
+                                            <hr>
+                                            <button class="btn btn-outline-warning btn-block btn-lg">Update theme's
+                                                settings
+                                            </button>
+                                        </div>
                                     </div>
-                                    <hr>
-                                    <button class="btn btn-outline-warning btn-block btn-lg">Update theme's settings</button>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
+                        <?php
+                    }
+                ?>
             </div>
         </div>
     </div>
     <script src="<?= \gLoad\Classes\Helpers::get_server_url() . '/compiled/js/jquery.min.js' ?>"></script>
     <script src="<?= \gLoad\Classes\Helpers::get_server_url() . '/compiled/js/popper.min.js' ?>"></script>
     <script src="<?= \gLoad\Classes\Helpers::get_server_url() . '/compiled/js/bootstrap.min.js' ?>"></script>
+    <script src="<?= \gLoad\Classes\Helpers::get_server_url() . '/compiled/js/gloadAdmin.js' ?>"></script>
 </body>
 </html>

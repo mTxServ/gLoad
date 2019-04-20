@@ -17,6 +17,10 @@ class ConnectionController extends Controller
 {
     private $openid;
 
+    /**
+     * ConnectionController constructor.
+     * @throws \Exception
+     */
     public function __construct()
     {
         $url = \gLoad\Classes\Helpers::get_server_url();

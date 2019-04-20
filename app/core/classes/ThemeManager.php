@@ -53,9 +53,10 @@ class ThemeManager
     {
         $themePath = self::$themeRoot . $themeName;
         $themeConfig = self::$themeRoot . $themeName . '/theme.json';
+        $themeIndex = self::$themeRoot . $themeName . '/index.html';
 
         if (is_dir($themePath)) {
-            if (!is_file($themeConfig))
+            if (!is_file($themeConfig) || !is_file($themeIndex))
                 return false;
 
             $json = file_get_contents($themeConfig);

@@ -14,6 +14,7 @@
 session_start();
 define('VIEWS_PATH', 'app/views/');
 define('DOCUMENT_ROOT', $_SERVER['DOCUMENT_ROOT']);
+define('SYSTEM_VERSION', '1.0.0-beta');
 
 require __DIR__ . '/vendor/autoload.php';
 
@@ -42,6 +43,9 @@ switch ($proper)
         break;
     case '/disconnect':
         $controller = new gLoad\Controllers\DisconnectController();
+        break;
+    case '/update/theme':
+        $controller = new gLoad\Controllers\ThemeConfigurationController();
         break;
     default:
         $controller = new gLoad\Controllers\ErrorController();
