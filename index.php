@@ -47,6 +47,9 @@ switch ($proper)
     case '/update/theme':
         $controller = new gLoad\Controllers\ThemeConfigurationController();
         break;
+    case '/update/theme/settings':
+        $controller = new gLoad\Controllers\ThemeSettingsController();
+        break;
     default:
         $controller = new gLoad\Controllers\ErrorController();
         break;

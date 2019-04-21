@@ -119,4 +119,17 @@ class ThemeManager
         $config = json_decode($json, true);
         return $config;
     }
+
+    public static function setThemeConfig(string $themeName, array $themeConfig)
+    {
+        $themeConfigPath = self::$themeRoot . $themeName . '/theme.json';
+        $themeJson = json_encode($themeConfig);
+        if (json_last_error() != JSON_ERROR_NONE)
+            /* TODO: add this error to php logs */
+            return false; /* avoid writing theme config*/
+
+        $flow = fopen($themeConfigPath, 'w');
+        fwrite($flow, $themeJson);
+        fclose($flow);
+    }
 }

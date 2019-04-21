@@ -2,3 +2,5 @@ vendor/
 *.iml
 *.xml
 *.lock
+data/latest-release.txt
+themes/default/theme.json

@@ -155,48 +155,82 @@ $themeName = \gLoad\Classes\Helpers::get_param_ini_file('config.ini', 'theme');
                                     <div id="collapseMain" class="collapse" aria-labelledby="main"
                                          data-parent="#accordionConfig">
                                         <div class="card-body">
-                                            <div class="row">
-                                                <?php
-                                                foreach (\gLoad\Classes\ThemeManager::getThemeConfig($themeName)['extra'][0] as $key => $extraConfig) {
-                                                    if (is_array($extraConfig)) {
-                                                        ?>
-                                                        <div class="col-12 col-md-4">
-                                                            <div id="<?= $key ?>">
-                                                                <h5><code><?= $key ?></code></h5>
-                                                                <?php
-                                                                foreach ($extraConfig as $value) {
+                                            <?php
+                                                $themeExtra = \gLoad\Classes\ThemeManager::getThemeConfig($themeName)['extra'][0];
+                                                if (is_array($themeExtra) && !empty($themeExtra)) {
+                                                    ?>
+                                                    <form method="POST" action="/update/theme/settings"
+                                                          name="themeSettings">
+                                                        <input type="hidden" class="invisible" value="<?= $themeName ?>"
+                                                               name="themeName">
+                                                        <div class="form-row">
+                                                            <?php
+                                                            foreach (\gLoad\Classes\ThemeManager::getThemeConfig($themeName)['extra'][0] as $key => $extraConfig) {
+                                                                if (is_array($extraConfig)) {
                                                                     ?>
-                                                                    <input type="text" class="form-control config-text"
-                                                                           aria-label="Large"
-                                                                           aria-describedby="inputGroup-sizing-sm"
-                                                                           value="<?= $value ?>">
+                                                                    <div class="col-12 col-md-4">
+                                                                        <div id="<?= $key ?>">
+                                                                            <h5>
+                                                                                <label for="<?= $key ?>"><code><?= $key ?></code></label>
+                                                                            </h5>
+                                                                            <?php
+                                                                            $i = 0;
+                                                                            foreach ($extraConfig as $value) {
+                                                                                ?>
+                                                                                <div id="<?= $key . $i?>" class="input-group mb-3">
+                                                                                    <input name="<?= $key ?>[]" type="text"
+                                                                                           class="form-control config-text"
+                                                                                           value="<?= $value ?>">
+                                                                                    <div class="input-group-append">
+                                                                                        <button type="button" class="btn btn-danger" data-toggle="deleteField"
+                                                                                                data-target="<?= $key . $i?>">
+                                                                                            <i class="fas fa-minus"></i>
+                                                                                        </button>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <?php
+                                                                                $i++;
+                                                                            }
+                                                                            ?>
+                                                                        </div>
+                                                                        <button type="button"
+                                                                                class="btn btn-outline-dark btn-block"
+                                                                                data-toggle="configFields"
+                                                                                data-target="<?= $key ?>">Adding a new
+                                                                            field
+                                                                        </button>
+                                                                    </div>
+                                                                    <?php
+                                                                } else {
+                                                                    ?>
+                                                                    <div id="<?= $key ?>" class="col-12">
+                                                                        <h5 class="inline"><code><?= $key ?></code> :
+                                                                        </h5> <input
+                                                                                type="text" class="form-control"
+                                                                                value="<?= $extraConfig ?>"
+                                                                                name="<?= $key ?>">
+                                                                    </div>
                                                                     <?php
                                                                 }
-                                                                ?>
-                                                            </div>
-                                                            <button type="button" class="btn btn-outline-dark btn-block"
-                                                                    data-toggle="configFields"
-                                                                    data-target="<?= $key ?>">Adding a new field
-                                                            </button>
+                                                            }
+                                                            ?>
                                                         </div>
-                                                        <?php
-                                                    } else {
-                                                        ?>
-                                                        <div id="<?= $key ?>" class="col-12">
-                                                            <h5 class="inline"><code><?= $key ?></code> :</h5> <input
-                                                                    type="text" class="form-control" aria-label="Large"
-                                                                    aria-describedby="inputGroup-sizing-sm"
-                                                                    value="<?= $extraConfig ?>">
-                                                        </div>
-                                                        <?php
-                                                    }
+                                                    </form>
+                                                    <hr>
+                                                    <button id="updateButton" class="btn btn-outline-warning btn-block btn-lg">Update theme's
+                                                        settings
+                                                    </button>
+                                                    <?php
+                                                } else {
+                                                    ?>
+                                                    <div class="alert alert-warning" role="alert">
+                                                        <strong>A problem occurred</strong> while trying to get theme's
+                                                        extra configuration. Maybe your theme just don't support extra
+                                                        configs ?
+                                                    </div>
+                                                    <?php
                                                 }
-                                                ?>
-                                            </div>
-                                            <hr>
-                                            <button class="btn btn-outline-warning btn-block btn-lg">Update theme's
-                                                settings
-                                            </button>
+                                            ?>
                                         </div>
                                     </div>
                                 </div>
