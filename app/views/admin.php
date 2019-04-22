@@ -25,6 +25,14 @@ $themeName = \gLoad\Classes\Helpers::get_param_ini_file('config.ini', 'theme');
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarText">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link" href="<?= \gLoad\Classes\Helpers::get_server_url() . \gLoad\Classes\Helpers::get_param_ini_file('config.ini', 'install') ?>/loading?mapname=rockford_v1&steamid=<?= \Gabyfle\SteamAuth::getUserData('steamid'); ?>" target="_blank">
+                            Live testing <i class="fas fa-external-link-alt"></i>
+                        </a>
+                    </li>
+                </ul>
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item dropdown">
                         <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -80,7 +88,7 @@ $themeName = \gLoad\Classes\Helpers::get_param_ini_file('config.ini', 'theme');
                     <div class="card text-white bg-info">
                         <div class="card-header">Your system version</div>
                         <div class="card-body">
-                            <h5 class="card-title">Latest version : <?= \gLoad\Classes\Helpers::get_latest_version('https://github.com/Gabyfle/gSteam-Auth') ?></h5>
+                            <h5 class="card-title">Latest version : <?= \gLoad\Classes\Helpers::get_latest_version('https://github.com/Gabyfle/gLoad') ?></h5>
                             <h5 class="card-title">Installed version : 1.0.0-beta</h5>
                             <p class="card-text">We recommend to always use the latest version of gLoad.</p>
                         </div>
@@ -242,6 +250,25 @@ $themeName = \gLoad\Classes\Helpers::get_param_ini_file('config.ini', 'theme');
             </div>
         </div>
     </div>
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-md-6">
+                    <h5>gLoad</h5>
+                    <p><a href="https://github.com/Gabyfle/gLoad">gLoad</a> is an open-sourced project hosted by <a href="https://github.com">Github</a>, created by <a href="https://github.com/Gabyfle">@Gabyfle</a> maintained by the community.</p>
+                </div>
+                <div class="col-12 col-md-6">
+                    <h5>Join the community</h5>
+                    <p>Don't be shy and join the <a href="https://github.com/Gabyfle/gLoad">Github Community</a> to start contributing for this project!</p>
+                </div>
+            </div>
+        </div>
+        <div id="gloadCopyright">
+            <div class="container">
+                &copy; Gabriel Santamaria <?= date('Y'); ?>. <b>gLoad</b> is licensed under <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache 2.0</a> license.
+            </div>
+        </div>
+    </footer>
     <script src="<?= \gLoad\Classes\Helpers::get_server_url() . '/compiled/js/jquery.min.js' ?>"></script>
     <script src="<?= \gLoad\Classes\Helpers::get_server_url() . '/compiled/js/popper.min.js' ?>"></script>
     <script src="<?= \gLoad\Classes\Helpers::get_server_url() . '/compiled/js/bootstrap.min.js' ?>"></script>
