@@ -145,4 +145,18 @@ class Helpers
 
         return $releaseName;
     }
+
+    /**
+     * Gets user data from steam's services
+     * @param string $steamId the user steam ID
+     * @return mixed
+     */
+    public static function get_steam_user_data(string $steamId)
+    {
+        $steamUrl = 'http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=' . self::get_param_ini_file('config.ini', 'steamKey') . '&steamids=' . $steamId;
+        $json = file_get_contents($steamUrl);
+        $contents = json_decode($json, true);
+
+        return $contents['response']['players'][0];
+    }
 }

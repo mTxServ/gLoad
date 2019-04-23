@@ -78,7 +78,7 @@ $themeName = \gLoad\Classes\Helpers::get_param_ini_file('config.ini', 'theme');
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id="inputGroup-sizing-default">URL</span>
                                 </div>
-                                <input type="text" class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm" placeholder="<?= \gLoad\Classes\Helpers::get_server_url() . \gLoad\Classes\Helpers::get_param_ini_file('config.ini', 'install') ?>/loading" value="<?= \gLoad\Classes\Helpers::get_server_url() . \gLoad\Classes\Helpers::get_param_ini_file('config.ini', 'install') ?>/loading">
+                                <input type="text" class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm" placeholder="<?= \gLoad\Classes\Helpers::get_server_url() . \gLoad\Classes\Helpers::get_param_ini_file('config.ini', 'install') ?>/loading?mapname=%m&steamid=%s" value="<?= \gLoad\Classes\Helpers::get_server_url() . \gLoad\Classes\Helpers::get_param_ini_file('config.ini', 'install') ?>/loading?mapname=%m&steamid=%s">
                             </div>
                             <p class="card-text">Goes in your servers settings (<code>server.cfg</code>) and in the field <code>sv_loading_url</code>, put this link.</p>
                         </div>

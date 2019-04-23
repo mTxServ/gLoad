@@ -101,22 +101,32 @@ class TagManager
      *
      * @return string|string[]|null
      */
-    public function parse()
+    public function parse_user_data()
     {
+        $steamId = isset($_GET['steamid']) ? $_GET['steamid'] : false;
+
+        if($steamId)
+            $userData = \gLoad\Classes\Helpers::get_steam_user_data($_GET['steamid']);
+        else
+            $userData = [];
+
+        /* Defining basic tags */
         $patterns = [
             '/{{style: (.*)}}/',
             '/{{script: (.*)}}/',
-            '/{{siteroot}}/',
-            '/{{steamavatar}}/',
-            '/{{steamid}}/'
+            '/{{siteroot}}/'
         ];
         $replace = [
             '<link href="' . $this->themeRoot . '/$1" rel="stylesheet"/>',
             '<script src="' . $this->themeRoot .'/$1"></script>',
-            $this->root,
-            '<img src="" alt="User steam avatar" />',
-            'User steam id'
+            $this->root
         ];
+        /* Defining every user-related tags */
+        foreach ($userData as $key => $value) {
+            $patterns[] = '/{{' . preg_quote($key) . '}}/';
+            $replace[] = $value;
+        }
+
         return preg_replace($patterns, $replace, $this->htmlFile);
     }
 }

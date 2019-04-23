@@ -20,14 +20,14 @@ class LoadHelper {
     /**
      * Mutators
      */
-    setGameDetails(...args)
+    setGameDetails(serverName, serverUrl, mapName, maxPlayers, steamId, gameMode)
     {
-        this.serverName = arguments[0];
-        this.serverUrl = arguments[1];
-        this.mapName = arguments[2];
-        this.maxPlayers = arguments[3];
-        this.steamId = arguments[4];
-        this.gameMode = arguments[5];
+        this.serverName = serverName;
+        this.serverUrl = serverUrl;
+        this.mapName = mapName;
+        this.maxPlayers = maxPlayers;
+        this.steamId = steamId;
+        this.gameMode = gameMode;
     }
     setFilesTotal(total) { this.filesTotal = total; }
 
@@ -43,6 +43,9 @@ class LoadHelper {
     getFilesTotal() { return this.total; }
 }
 
+var gLoad = new LoadHelper();
 
-const GameDetails = (...args) => LoadHelper.prototype.setGameDetails(...args);
-const SetFilesTotal = (total) => LoadHelper.prototype.setFilesTotal(total);
+
+
+const GameDetails = (...args) => gLoad.setGameDetails(...args);
+const SetFilesTotal = (total) => gLoad.setFilesTotal(total);

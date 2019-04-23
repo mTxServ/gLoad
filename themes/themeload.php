@@ -22,7 +22,7 @@ $themePaths = [
 try{
     $parser = new \gLoad\Classes\TagManager($themePaths['index'], $themeName);
     $parser->parse_config();
-    $htmlCode = $parser->parse();
+    $htmlCode = $parser->parse_user_data();
 } catch(ErrorException $e) {
     echo 'An error occurred while trying to get the theme\'s data : ' . $e;
 }
