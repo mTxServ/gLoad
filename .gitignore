@@ -6,3 +6,4 @@ data/latest-release.txt
 themes/default/theme.json
 .env
 docker-compose.override.yml
+config.ini
