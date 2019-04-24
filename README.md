@@ -30,6 +30,49 @@ Every theme is located in its own folder in  the `theme` folder. When the page i
 
 ~~**gLoad** allows you to use built-in Javascripts functions to get data from *Garry's Mod*.~~
 
+#### Using Docker in your environment
+Start using `Docker` to start contributing to gLoad!
+
+##### Installation
+
+```
+make install
+```
+
+##### Start
+
+```
+$ make start
+```
+
+##### Stop
+
+```
+$ make stop
+```
+
+##### List container
+
+```
+$ docker-compose ps
+```
+
+##### Useful commands
+
+```
+# Get mysql 
+$ docker-compose exec mysql bash
+$ mysql .. mtxserv < mtxserv.sql
+```
+```
+# Get bash
+$ docker-compose exec php bash
+```
+```
+# Composer (e.g. composer update)
+$ docker-compose exec php-cli composer update
+```
+
 ## Credits
 
 #### Front-end development
@@ -46,47 +89,3 @@ Every theme is located in its own folder in  the `theme` folder. When the page i
 
 ## License
 This code is distributed free of charge under the [Apache 2.0 license](https://www.apache.org/licenses/LICENSE-2.0). The code is distributed "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND.  For more information, please visit [LICENSE](https://github.com/Gabyfle/gLoad/blob/master/LICENSE)
-
-## Docker 
-
-### Installation
-
-```
-make install
-```
-
-### Start
-
-```
-$ make start
-```
-
-### Stop
-
-```
-$ make stop
-```
-
-### List container
-
-```
-$ docker-compose ps
-```
-
-### Useful commands
-
-```
-# Get mysql 
-$ docker-compose exec mysql bash
-$ mysql .. mtxserv < mtxserv.sql
-```
-
-```
-# Get bash
-$ docker-compose exec php bash
-```
-
-```
-# Composer (e.g. composer update)
-$ docker-compose exec php-cli composer update
-```
