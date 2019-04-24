@@ -1,0 +1,33 @@
+version: '2'
+
+services:
+
+    nginx:
+        build: docker/nginx
+        volumes_from:
+            - php
+        links:
+            - php
+        depends_on:
+            - php
+
+    php:
+        build: docker/php
+        volumes:
+            - ./:/app:cached
+        links:
+            - mysql
+
+    mysql:
+        build: docker/mysql
+        environment:
+            MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+            MYSQL_DATABASE: ${MYSQL_DATABASE}
+            MYSQL_USER: ${MYSQL_USER}
+            MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+        volumes:
+            - ./:/app:cached
+            - "gload_mysql:/var/lib/mysql:cached"
+
+volumes:
+    gload_mysql: ~
