@@ -6,7 +6,7 @@ steamKey =
 [theme]
 theme = Default
 [database]
-host = localhost
-name = gmod
-user = root
-pass = 
+host = mysql
+name = gload
+user = gload
+pass = gload
